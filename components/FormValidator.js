@@ -17,7 +17,6 @@ export default class FormValidator {
     resetValidation() {
         this._disableButton();
         this._clearFormInputElements();
-        //no params, reset form input, disable submit button
     }
 
     _showInputError = (inputElement) => {
@@ -50,8 +49,9 @@ export default class FormValidator {
     }
 
     _checkInvalidInput() {
-        return this._formInputElements.some((inputElement) => {
-            return !inputElement.validity.valid;           
+        return this._formInputElements.every((inputElement) => {
+          if(inputElement.value.length === 0) {return false};
+            return inputElement.validity.valid;         
         });
     }
 
@@ -77,12 +77,12 @@ export default class FormValidator {
         this._checkInvalidInput() ? this._enableButton() : this._disableButton();
     }
 
-    _enableButton() {
+    _disableButton() {
         this._buttonElement.classList.add(this._settings.inactiveButtonClass);
         this._buttonElement.disabled = true;
     }
 
-    _disableButton() {
+    _enableButton() {
         this._buttonElement.classList.remove(this._settings.inactiveButtonClass);
         this._buttonElement.disabled = false;
     }

@@ -1,8 +1,8 @@
 export default class Todo {
-    constructor(data, selector = ".todo") {
-        this._todoTemplate = document.querySelector("#todo-template");
+    constructor(data, selector = "#todo-template") {
+        this._todoTemplate = document.querySelector(selector);
         this._todoElement = this._todoTemplate.content
-            .querySelector(selector) 
+            .querySelector(".todo") 
             .cloneNode(true);
         this._todoNameEl = this._todoElement.querySelector(".todo__name");
         this._todoCheckboxEl = this._todoElement.querySelector(".todo__completed");
