@@ -26,5 +26,12 @@ export const initialTodos = [
     errorClass: "popup__error_visible",
     inputErrorClass: "popup__input_type_error",
     inactiveButtonClass: "button_disabled",
-    todoTemplateSelector: "#todo-template"
+    todoTemplateSelector: "#todo-template",
+    todoPopupSelector: "#add-todo-popup",
+    todoCounterSelector: ".counter"
   };
+
+export const addTodoButton = document.querySelector(".button_action_add");
+export const addTodoPopup = document.querySelector("#add-todo-popup");
+export const addTodoForm = addTodoPopup.querySelector("#add-todo-form");
+export const todosList = document.querySelector(".todos__list");

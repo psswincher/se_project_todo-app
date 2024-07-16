@@ -1,5 +1,5 @@
 export default class Todo {
-    constructor(data, selector = "#todo-template") {
+    constructor({ data, selector = "#todo-template", onCheckBoxClick, onDelete }) {
         this._todoTemplate = document.querySelector(selector);
         this._todoElement = this._todoTemplate.content
             .querySelector(".todo") 
@@ -16,7 +16,11 @@ export default class Todo {
         this._setIdAndLabel(data.id);
         this._setDueDate(data.date);
 
+        this._onDelete = onDelete;
+        this._onCheckBoxClick = onCheckBoxClick;
+
         this._setEventListeners();
+        
     }
 
     _setToDoName(name = "Blank name") {
@@ -33,6 +37,7 @@ export default class Todo {
     }
 
     _setDueDate(date) {
+        if(isNaN(date)) {date = new Date(date)};
         if (!isNaN(date)) {
             this._todoDate.textContent = `Due: ${date.toLocaleString("en-US", {
               year: "numeric",
@@ -42,10 +47,16 @@ export default class Todo {
           }
     }
 
+    _getCompletedStatus() {
+        return this._todoCheckboxEl.checked;
+    }
+
     _setEventListeners() {
         this._todoDeleteBtn.addEventListener("click", () => {
             this._todoElement.remove();
+            this._onDelete();
         });
+        this._todoCheckboxEl.addEventListener("click", () => this._onCheckBoxClick());
     }
 
     getView() {
