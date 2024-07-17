@@ -1,9 +1,7 @@
 class TodoCounter {
     constructor(todos, selector) { //=".counter"
       this._element = document.querySelector(selector);
-      console.log(todos.filter(todo => todo.completed === true).length);
       this._completed = todos.filter(todo => todo.completed === true).length;
-      console.log(this._completed);
       this._total = todos.length;
     }
     
