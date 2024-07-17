@@ -1,10 +1,11 @@
-import { addTodoButton, addTodoForm, todosList, initialTodos, validationConfig } from "../utils/constants.js";
-import Todo from '../components/Todo.js';
-import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
-import FormValidator from '../components/FormValidator.js';
-import Section from '../components/Section.js'
-import PopupWithForm from '../components/PopupWithForm.js';
-import ToDoCounter from '../components/ToDoCounter.js';
+import { addTodoButton, addTodoForm, todosList, initialTodos, validationConfig } from "./utils/constants.js";
+import Todo from './components/Todo.js';
+import { v4 as uuidv4 } from './node_modules/uuid/dist/index.js';
+import FormValidator from './components/FormValidator.js';
+import Section from './components/Section.js'
+import PopupWithForm from './components/PopupWithForm.js';
+import ToDoCounter from './components/ToDoCounter.js';
+import './index.css'
 
 addTodoButton.addEventListener("click", () => {
   newTodoForm.open();
