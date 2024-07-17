@@ -10,7 +10,7 @@ addTodoButton.addEventListener("click", () => {
   newTodoForm.open();
 });
 
-function makeToDo({ itemData, onCheckBoxClickFunc, onDeleteFunc}) {
+function makeToDo(itemData, onCheckBoxClickFunc, onDeleteFunc) {
   const newTodo = new Todo({ data: itemData, id: new uuidv4, selector: validationConfig.todoTemplateSelector, 
     onCheckBoxClick: onCheckBoxClickFunc,
     onDelete: onDeleteFunc
@@ -23,15 +23,15 @@ toDoCounter.updateText();
 
 const todoSection = new Section({items: initialTodos, 
   renderer: (item) => {
-    const todo = makeToDo({ itemData: item,  
-      onCheckBoxClickFunc: () => {
+    const todo = makeToDo(item,  
+      () => {
         toDoCounter.updateCompleted(todo.getCompletedStatus());
       },
-      onDeleteFunc: () => {
+      () => {
         toDoCounter.updateTotal(false);
         if (todo.getCompletedStatus()) toDoCounter.updateCompleted(false)
       }
-  });
+  );
   //if I update this per code review to not reference todoList and instead use todoSection.addItem it creates a circular reference.
   //is there another approach, or some other refactor I need to do?
     todosList.append(todo);
