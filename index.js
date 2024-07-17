@@ -1,4 +1,4 @@
-import { addTodoButton, addTodoForm, todosList, initialTodos, validationConfig } from "./utils/constants.js";
+import { addTodoButton, addTodoForm, todosListSelector, initialTodos, validationConfig } from "./utils/constants.js";
 import Todo from './components/Todo.js';
 import { v4 as uuidv4 } from './node_modules/uuid/dist/index.js';
 import FormValidator from './components/FormValidator.js';
@@ -11,7 +11,7 @@ addTodoButton.addEventListener("click", () => {
   newTodoForm.open();
 });
 
-function makeToDo(item) {
+function makeTodo(item) {
   const todo = new Todo({ data: item, id: new uuidv4, selector: validationConfig.todoTemplateSelector, 
     onCheckBoxClick: () => {
       toDoCounter.updateCompleted(todo.getCompletedStatus());
@@ -29,19 +29,19 @@ toDoCounter.updateText();
 
 const todoSection = new Section({items: initialTodos, 
   renderer: (item) => {
-    const todo = makeToDo(item);
-    //My last code review requested that change the below line to call on the Section class to append the to do item
-    //However, this renderer declaration is part of the Section class and making the recommending edit creates a circular reference
-    //I'm not sure what other change to make.
-    todosList.append(todo)
-}, containerSelector: todosList});
+    const todo = makeTodo(item);
+    todoSection.addItem(todo)
+}, containerSelector: todosListSelector});
 
 todoSection.renderItems();
 
 const newTodoForm = new PopupWithForm({ 
   popupSelector: validationConfig.todoPopupSelector, 
   onSubmitCallback: (inputValues) => {
-    todoSection.addItem(inputValues);
+    console.log(inputValues);
+    const newTodo = makeTodo(inputValues);
+
+    todoSection.addItem(newTodo);
     newTodoForm.close();
     formValidator.resetValidation();
     toDoCounter.updateTotal(true);

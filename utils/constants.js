@@ -35,3 +35,4 @@ export const addTodoButton = document.querySelector(".button_action_add");
 export const addTodoPopup = document.querySelector("#add-todo-popup");
 export const addTodoForm = addTodoPopup.querySelector("#add-todo-form");
 export const todosList = document.querySelector(".todos__list");
+export const todosListSelector = '.todos__list';
