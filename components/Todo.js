@@ -47,7 +47,7 @@ export default class Todo {
           }
     }
 
-    _getCompletedStatus() {
+    getCompletedStatus() {
         return this._todoCheckboxEl.checked;
     }
 
