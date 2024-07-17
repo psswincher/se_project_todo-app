@@ -28,8 +28,7 @@ export const initialTodos = [
     inactiveButtonClass: "button_disabled",
     todoTemplateSelector: "#todo-template",
     todoPopupSelector: "#add-todo-popup",
-    todoCounterSelector: ".counter",
-    containerSelector: ".todos__list"
+    todoCounterSelector: ".counter"
   };
 
 export const addTodoButton = document.querySelector(".button_action_add");

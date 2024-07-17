@@ -2,7 +2,7 @@ import { addTodoButton, addTodoForm, todosList, initialTodos, validationConfig }
 import Todo from '../components/Todo.js';
 import { v4 as uuidv4 } from 'https://jspm.dev/uuid';
 import FormValidator from '../components/FormValidator.js';
-import Section from '../components/Section.js'
+import Section from '../utils/Section.js'
 import PopupWithForm from '../components/PopupWithForm.js';
 import ToDoCounter from '../components/ToDoCounter.js';
 
@@ -10,32 +10,22 @@ addTodoButton.addEventListener("click", () => {
   newTodoForm.open();
 });
 
-function makeToDo({ itemData, onCheckBoxClickFunc, onDeleteFunc}) {
-  const newTodo = new Todo({ data: itemData, id: new uuidv4, selector: validationConfig.todoTemplateSelector, 
-    onCheckBoxClick: onCheckBoxClickFunc,
-    onDelete: onDeleteFunc
-});
-return newTodo.getView();
-}
-
 const toDoCounter = new ToDoCounter(initialTodos, validationConfig.todoCounterSelector);
-toDoCounter.updateText();
+toDoCounter._updateText();
 
 const todoSection = new Section({items: initialTodos, 
   renderer: (item) => {
-    const todo = makeToDo({ itemData: item,  
-      onCheckBoxClickFunc: () => {
-        toDoCounter.updateCompleted(todo.getCompletedStatus());
+    const todo = new Todo({ data: item, id: new uuidv4, selector: validationConfig.todoTemplateSelector, 
+      onCheckBoxClick: () => {
+        toDoCounter.updateCompleted(todo._getCompletedStatus());
       },
-      onDeleteFunc: () => {
+      onDelete: () => {
         toDoCounter.updateTotal(false);
-        if (todo.getCompletedStatus()) toDoCounter.updateCompleted(false)
+        if (todo._getCompletedStatus()) toDoCounter.updateCompleted(false)
       }
   });
-  //if I update this per code review to not reference todoList and instead use todoSection.addItem it creates a circular reference.
-  //is there another approach, or some other refactor I need to do?
-    todosList.append(todo);
-}, containerSelector: validationConfig.containerSelector});
+    todosList.append(todo.getView())
+}, containerSelector: todosList});
 
 todoSection.renderItems();
 
