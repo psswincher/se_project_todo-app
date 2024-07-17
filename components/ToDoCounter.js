@@ -11,16 +11,16 @@ class TodoCounter {
         increment ? this._completed += 1 : this._completed -= 1;
         this._completed > this._total ? this._completed = this._total : null;
         this._completed < 0 ? this._completed = 0 : null;
-        this._updateText();
+        this.updateText();
     };
 
     updateTotal = (increment) => {
         increment ? this._total += 1 : this._total -= 1;
-        this._updateText();
+        this.updateText();
 
     };
   
-    _updateText() {
+    updateText() {
       this._element.textContent = `Showing ${this._completed} out of ${this._total} completed`;
     }
   }
