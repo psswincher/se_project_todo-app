@@ -20,7 +20,7 @@ function makeToDo(item) {
       if (todo.getCompletedStatus()) toDoCounter.updateCompleted(false)
     }
 });
-  return todo;
+  return todo.getView();
 }
 
 const toDoCounter = new ToDoCounter(initialTodos, validationConfig.todoCounterSelector);
@@ -29,7 +29,10 @@ toDoCounter.updateText();
 const todoSection = new Section({items: initialTodos, 
   renderer: (item) => {
     const todo = makeToDo(item);
-    todosList.append(todo.getView())
+    //My last code review requested that change the below line to call on the Section class to append the to do item
+    //However, this renderer declaration is part of the Section class and making the recommending edit creates a circular reference
+    //I'm not sure what other change to make.
+    todosList.append(todo)
 }, containerSelector: todosList});
 
 todoSection.renderItems();
